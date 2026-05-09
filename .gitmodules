@@ -16,3 +16,9 @@
 [submodule "projects/pi-multicodex"]
 	path = projects/pi-multicodex
 	url = https://github.com/lhl/pi-multicodex.git
+[submodule "projects/pi-anthropic-auth"]
+	path = projects/pi-anthropic-auth
+	url = https://github.com/gotgenes/pi-anthropic-auth.git
+[submodule "projects/pi-extensions"]
+	path = projects/pi-extensions
+	url = https://github.com/asyrjasalo/pi-extensions.git

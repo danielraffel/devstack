@@ -4,6 +4,21 @@ Append-only session log. Each entry records what was done, why, and what's next.
 
 ---
 
+## 2026-05-09 — Added submodules for pi-anthropic-auth and pi-extensions
+
+**What:** Per devstack's submodule convention, added the upstream sources for both newly installed plugins under `projects/`.
+
+- `projects/pi-anthropic-auth` → `https://github.com/gotgenes/pi-anthropic-auth.git`
+- `projects/pi-extensions` → `https://github.com/asyrjasalo/pi-extensions.git` (mirror that contains `packages/pi-repoprompt-mcp`; canonical upstream is `w-winter/dot314` but the user pointed at this mirror)
+
+**Decisions:**
+- Used `asyrjasalo/pi-extensions` (the mirror the user referenced) rather than `w-winter/dot314` since git submodules track whole repos and the asyrjasalo one is a focused pi-extensions monorepo.
+
+**Next:**
+- Future submodule consumers: `git clone --recurse-submodules` or `git submodule update --init` to populate.
+
+---
+
 ## 2026-05-09 — Added pi-repoprompt-mcp
 
 **What:** Wired `npm:pi-repoprompt-mcp` (v0.7.3) into the devstack plugin stack so RepoPrompt MCP tools are available behind a single `rp` tool inside pi.
