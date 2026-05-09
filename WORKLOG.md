@@ -32,7 +32,7 @@ Append-only session log. Each entry records what was done, why, and what's next.
 - Ran `pi-setup.sh` end-to-end on macOS arm64 (Node v22.18.0). All `pi install` lines succeeded; `pi list` confirms `@gotgenes/pi-anthropic-auth` is registered.
 
 **Decisions:**
-- Permanent npm install (vs. local `-e` from `/Users/danielraffel/Code/pi-anthropic-auth`) because the user wanted a global pi config usable outside this repo.
+- Permanent npm install (vs. a local `-e` build from a clone) because the goal was a global pi config usable outside this repo.
 - Filed under "Account & Quota Management" in README — Anthropic OAuth subscription auth is the same conceptual category as Codex quota/account handling.
 
 **Next:**

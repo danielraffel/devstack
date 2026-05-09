@@ -2,6 +2,8 @@
 
 An opiniated guide for agentic programming best practices. This is what I'm currently using/moving towards to for development.
 
+> Forked from [lhl/devstack](https://github.com/lhl/devstack) with a couple of personal additions: [`@gotgenes/pi-anthropic-auth`](https://github.com/gotgenes/pi-anthropic-auth) (Claude Pro/Max OAuth via pi's native `/login anthropic`) and [`pi-repoprompt-mcp`](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp) (RepoPrompt MCP integration). All credit for the original setup, framing, and writeups belongs to lhl.
+
 ## Coding Agent
 
 [Pi Coding Agent](https://pi.dev/) is an open source "minimal terminal coding harness" that is designed be customized and adapt to the way you want to work. You can start with Claude Code, OpenAI Codex, OpenCode or any harness you want, but if you're looking to start really customizing your workflow/experience, or looking for the best tool to use with multiple models (or just looking for a harness that won't introduce ridiculous regressions constantly), I believe Pi Agent's flexibility and ease of customization actually makes it the current best option. 
@@ -9,10 +11,12 @@ An opiniated guide for agentic programming best practices. This is what I'm curr
 You should visit their nicely designed website to get a better idea of what it's all about, but if you just want to install my current setup (pi + my plugins):
 
 ```bash
-git clone https://github.com/lhl/devstack
+git clone https://github.com/danielraffel/devstack
 cd devstack
 ./pi-setup.sh
 ```
+
+(Or clone the upstream [lhl/devstack](https://github.com/lhl/devstack) if you don't want the additions noted above.)
 
 ## Why Pi Is Neat
 
