@@ -77,9 +77,9 @@ For saving tokens.
 
 ### Editor Integrations
 
-- [w-winter/pi-repoprompt-mcp](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp) — exposes [RepoPrompt](https://repoprompt.com/)'s MCP tools to pi behind a single `rp` tool with branch-safe window/tab binding (auto-attaches by `cwd`, persists across `/tree` rewinds and `/fork`), syntax + diff highlighting, edit/delete guardrails, and an `/rp oracle` shortcut to send the current selection to RepoPrompt Chat
-  - Requires the RepoPrompt macOS app and its MCP server reachable; config lives at `~/.pi/agent/extensions/repoprompt-mcp.json`
-  - Also mirrored at [asyrjasalo/pi-extensions](https://github.com/asyrjasalo/pi-extensions/tree/main/packages/pi-repoprompt-mcp)
+- [asyrjasalo/pi-extensions — pi-repoprompt-mcp](https://github.com/asyrjasalo/pi-extensions/tree/main/packages/pi-repoprompt-mcp) — exposes [RepoPrompt](https://repoprompt.com/)'s MCP tools to pi behind a single `rp` tool with branch-safe window/tab binding (auto-attaches by `cwd`, persists across `/tree` rewinds and `/fork`), syntax + diff highlighting, edit/delete guardrails, and an `/rp oracle` shortcut to send the current selection to RepoPrompt Chat
+  - Requires the RepoPrompt macOS app installed and running; `pi-setup.sh` auto-writes `~/.pi/agent/extensions/repoprompt-mcp.json` pointing at `/Applications/Repo Prompt.app/Contents/MacOS/repoprompt-mcp` (the bundled MCP server) so pi spawns the right binary instead of trying `npx rp-mcp-server`
+  - Upstream monorepo: [w-winter/dot314](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp)
 
 ### Task Management
 
