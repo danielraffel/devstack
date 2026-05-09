@@ -4,6 +4,25 @@ Append-only session log. Each entry records what was done, why, and what's next.
 
 ---
 
+## 2026-05-09 — Added pi-anthropic-auth for Claude Pro/Max OAuth
+
+**What:** Wired `@gotgenes/pi-anthropic-auth` into the devstack pi plugin stack so Claude subscription OAuth (`/login anthropic`) works alongside pi's native Anthropic provider.
+
+- Added `pi install npm:@gotgenes/pi-anthropic-auth` to `pi-setup.sh` (after the codex/skill-dollar block) with a comment explaining its role.
+- Added an entry under `### Account & Quota Management` in `README.md` linking to `gotgenes/pi-anthropic-auth` and noting `PI_ANTHROPIC_AUTH_DEBUG=all|tool-use` for debug logging.
+- Added an `Installed Extensions` table row in `wiki/tools/pi-agent.md` (v0.4.6) and an install command in the install block.
+- Ran `pi-setup.sh` end-to-end on macOS arm64 (Node v22.18.0). All `pi install` lines succeeded; `pi list` confirms `@gotgenes/pi-anthropic-auth` is registered.
+
+**Decisions:**
+- Permanent npm install (vs. local `-e` from `/Users/danielraffel/Code/pi-anthropic-auth`) because the user wanted a global pi config usable outside this repo.
+- Filed under "Account & Quota Management" in README — Anthropic OAuth subscription auth is the same conceptual category as Codex quota/account handling.
+
+**Next:**
+- Camoufox install step in `pi-setup.sh` (line 95: `pip install camoufox[geoip]`) failed with `pip: command not found`. Unrelated to pi-anthropic-auth — only blocks stealth web access. Resolve with a Python/pip install (e.g. `brew install python` or `pipx`) before re-running the camoufox tail of `pi-setup.sh`.
+- User should run `pi` then `/login anthropic` to authenticate the Claude Pro/Max subscription, then pick a Claude model (e.g. `--model anthropic/claude-sonnet-4-6`).
+
+---
+
 ## 2026-05-08 — Updated pi-zentui Codex quota footer
 
 **What:** Changed `lhl/pi-zentui` so Codex sessions show quota remaining instead of misleading dollar cost.

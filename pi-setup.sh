@@ -54,6 +54,11 @@ pi install npm:pi-codex-status
 pi install npm:@victor-software-house/pi-multicodex
 pi install npm:pi-skill-dollar
 
+# Anthropic Claude Pro/Max OAuth compatibility shim — keeps pi's native
+# /login anthropic flow working when authenticating with a Claude
+# subscription instead of an API key.
+pi install npm:@gotgenes/pi-anthropic-auth
+
 # pi-vcc: make it handle /compact and auto-threshold compactions (not just /pi-vcc).
 # Default is false, which only runs pi-vcc on the explicit /pi-vcc command.
 # We override because pi's built-in single-pass summarizer can 400 on large spans.

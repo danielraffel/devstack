@@ -53,6 +53,8 @@ For saving tokens.
 
 ### Account & Quota Management
 
+- [gotgenes/pi-anthropic-auth](https://github.com/gotgenes/pi-anthropic-auth) — Anthropic Claude Pro/Max OAuth compatibility shim. Lets you use your Claude subscription via pi's native `/login anthropic` flow instead of an API key; API-key behavior is unaffected.
+  - Set `PI_ANTHROPIC_AUTH_DEBUG=all` (or `tool-use`) for structured debug logs from the OAuth shaping layer.
 - [lhl/pi-multicodex](https://github.com/lhl/pi-multicodex) — fork of victor-software-house/pi-multicodex with fixes; automatic ChatGPT Codex account rotation when quota limits or rate limits are hit
   - Keeps its own `~/.pi/agent/codex-accounts.json` (separate from pi's native `auth.json`) and patches into existing model resolution so `/model` and provider config work unchanged
   - Recommended: do not use pi's native `/login` for Codex if you're using multicodex; the two auth systems are independent and mixing them causes confusion
