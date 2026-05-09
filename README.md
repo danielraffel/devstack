@@ -53,13 +53,19 @@ For saving tokens.
 
 ### Account & Quota Management
 
-- [gotgenes/pi-anthropic-auth](https://github.com/gotgenes/pi-anthropic-auth) — Anthropic Claude Pro/Max OAuth compatibility shim. Lets you use your Claude subscription via pi's native `/login anthropic` flow instead of an API key; API-key behavior is unaffected.
-  - Set `PI_ANTHROPIC_AUTH_DEBUG=all` (or `tool-use`) for structured debug logs from the OAuth shaping layer.
+- [gotgenes/pi-anthropic-auth](https://github.com/gotgenes/pi-anthropic-auth) — compatibility shim that lets you use your Claude Pro/Max subscription with pi's native `/login anthropic` flow (OAuth) instead of an API key; API-key behavior is unchanged
+  - Debug: `PI_ANTHROPIC_AUTH_DEBUG=all` (or `tool-use`) emits structured logs from the OAuth shaping layer
 - [lhl/pi-multicodex](https://github.com/lhl/pi-multicodex) — fork of victor-software-house/pi-multicodex with fixes; automatic ChatGPT Codex account rotation when quota limits or rate limits are hit
   - Keeps its own `~/.pi/agent/codex-accounts.json` (separate from pi's native `auth.json`) and patches into existing model resolution so `/model` and provider config work unchanged
   - Recommended: do not use pi's native `/login` for Codex if you're using multicodex; the two auth systems are independent and mixing them causes confusion
 - [pi-codex-status](https://www.npmjs.com/package/pi-codex-status) - CLI + pi extension for ChatGPT Codex quota visibility (`/status`, `pi-codex-status statusline`, normalized JSON export); source: [lhl/pi-codex-status](https://github.com/lhl/pi-codex-status)
   - Auth resolution: tries MultiCodex `codex-accounts.json` first, then pi `auth.json`, then Codex CLI `.codex/auth.json`
+
+### Editor Integrations
+
+- [w-winter/pi-repoprompt-mcp](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp) — exposes [RepoPrompt](https://repoprompt.com/)'s MCP tools to pi behind a single `rp` tool with branch-safe window/tab binding (auto-attaches by `cwd`, persists across `/tree` rewinds and `/fork`), syntax + diff highlighting, edit/delete guardrails, and an `/rp oracle` shortcut to send the current selection to RepoPrompt Chat
+  - Requires the RepoPrompt macOS app and its MCP server reachable; config lives at `~/.pi/agent/extensions/repoprompt-mcp.json`
+  - Also mirrored at [asyrjasalo/pi-extensions](https://github.com/asyrjasalo/pi-extensions/tree/main/packages/pi-repoprompt-mcp)
 
 ### Task Management
 

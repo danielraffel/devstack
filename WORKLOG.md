@@ -4,6 +4,24 @@ Append-only session log. Each entry records what was done, why, and what's next.
 
 ---
 
+## 2026-05-09 — Added pi-repoprompt-mcp
+
+**What:** Wired `npm:pi-repoprompt-mcp` (v0.7.3) into the devstack plugin stack so RepoPrompt MCP tools are available behind a single `rp` tool inside pi.
+
+- Added `pi install npm:pi-repoprompt-mcp` to `pi-setup.sh` with a comment noting the RepoPrompt app + MCP server requirement.
+- Added a new `### Editor Integrations` section to `README.md` (between Account & Quota Management and Task Management) describing the extension and pointing at both the canonical [`w-winter/dot314`](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp) source and the [`asyrjasalo/pi-extensions`](https://github.com/asyrjasalo/pi-extensions/tree/main/packages/pi-repoprompt-mcp) mirror.
+- Added an `Installed Extensions` row in `wiki/tools/pi-agent.md` and an install line in the install block.
+- `pi install npm:pi-repoprompt-mcp` succeeded; `pi list` shows the extension registered.
+
+**Decisions:**
+- Created a new "Editor Integrations" section rather than wedging RepoPrompt into Context Management — it's substantively about wiring an external editor tool into pi, not just token savings.
+- Linked `w-winter/dot314` (canonical) as the primary source and called out the asyrjasalo mirror as the alternate.
+
+**Next:**
+- Configure `~/.pi/agent/extensions/repoprompt-mcp.json` with the RepoPrompt MCP server command before using the `rp` tool, or rely on auto-detection if the RepoPrompt app provides it.
+
+---
+
 ## 2026-05-09 — Added pi-anthropic-auth for Claude Pro/Max OAuth
 
 **What:** Wired `@gotgenes/pi-anthropic-auth` into the devstack pi plugin stack so Claude subscription OAuth (`/login anthropic`) works alongside pi's native Anthropic provider.

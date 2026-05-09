@@ -40,6 +40,7 @@ Pi (pi.dev) is a minimal, extensible terminal coding harness by Mario Zechner (b
 | **pi-codex-status** | `npm:pi-codex-status` ([source](https://github.com/lhl/pi-codex-status)) | ChatGPT Codex quota/status CLI + `/status` extension (5h, weekly, credits, JSON/statusline export) | ✅ Installed (v0.1.0) |
 | **pi-multicodex** | `npm:@victor-software-house/pi-multicodex` | Automatic ChatGPT Codex account rotation on quota/rate limits | ✅ Installed (v2.3.1) |
 | **pi-anthropic-auth** | `npm:@gotgenes/pi-anthropic-auth` ([source](https://github.com/gotgenes/pi-anthropic-auth)) | Anthropic Claude Pro/Max OAuth compatibility shim — preserves native `/login anthropic` flow for subscription auth | ✅ Installed (v0.4.6) |
+| **pi-repoprompt-mcp** | `npm:pi-repoprompt-mcp` ([source](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp)) | Exposes RepoPrompt MCP tools to pi via a single `rp` tool — branch-safe window/tab binding, rendered diffs/code, oracle helper | ✅ Installed (v0.7.3) |
 | **pi-codex-fast** | `npm:@calesennett/pi-codex-fast` ([source](https://github.com/calesennett/pi-codex-fast)) | Optional OpenAI/OpenAI Codex priority service-tier toggle (`service_tier: "priority"`) | 🧪 Local evaluation; not in default `pi-setup.sh` |
 | **pi-live-terminal** | `npm:pi-live-terminal` ([source](https://github.com/tanishqkancharla/pi-live-terminal)) | tmux-based live terminal widget for interactive/long-running commands | ✅ Installed (v0.2.0) |
 | **pi-vertex** | `npm:@lhl/pi-vertex` ([source](https://github.com/lhl/pi-vertex)) | Google Vertex AI provider — Gemini, Claude, Llama, DeepSeek, Qwen, Mistral, and 20+ other MaaS models | ✅ Installed (v1.1.8, forked from ssweens) |
@@ -75,6 +76,9 @@ pi install npm:@victor-software-house/pi-multicodex
 
 # Anthropic Claude Pro/Max OAuth compatibility
 pi install npm:@gotgenes/pi-anthropic-auth
+
+# RepoPrompt MCP integration (requires RepoPrompt app + MCP server)
+pi install npm:pi-repoprompt-mcp
 
 # Live terminal widget (tmux required)
 pi install npm:pi-live-terminal

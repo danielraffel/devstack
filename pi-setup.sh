@@ -59,6 +59,13 @@ pi install npm:pi-skill-dollar
 # subscription instead of an API key.
 pi install npm:@gotgenes/pi-anthropic-auth
 
+# RepoPrompt MCP integration — exposes the RepoPrompt desktop app's MCP
+# tools (read_file, file_search, apply_edits, oracle, etc.) to pi via a
+# single `rp` tool, with branch-safe window/tab binding and rendered
+# tool output. Requires the RepoPrompt macOS app + MCP server to be
+# installed and reachable.
+pi install npm:pi-repoprompt-mcp
+
 # pi-vcc: make it handle /compact and auto-threshold compactions (not just /pi-vcc).
 # Default is false, which only runs pi-vcc on the explicit /pi-vcc command.
 # We override because pi's built-in single-pass summarizer can 400 on large spans.
