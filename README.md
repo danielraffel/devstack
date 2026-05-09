@@ -28,6 +28,8 @@ alias pi='command pi --provider anthropic --model claude-opus-4-6 --thinking xhi
 
 Add to `~/.zshrc` (or `~/.bashrc`) and `source` it. Use `command pi …` if you ever need the unaliased form (e.g. `command pi --provider google …`). Heads up: subscription auth from third-party harnesses bills against [Anthropic extra usage](https://claude.ai/settings/usage) per token, not your flat plan limits — Opus + `xhigh` burns through it fast, so reserve it for the work that needs it.
 
+**Bedrock auto-detect trap:** if your shell exports `AWS_*` credentials (e.g. for SES or another AWS workload), pi will auto-load the `bedrock` provider and silently default model picks to `bedrock/anthropic.claude-…`, which fails with `AccessDeniedException` unless your IAM principal has `bedrock:InvokeModelWithResponseStream`. The `--provider anthropic` flag in the alias above pins you to OAuth — drop it only if you really mean to. To one-shot strip AWS creds for a single launch: `env -u AWS_ACCESS_KEY_ID -u AWS_SECRET_ACCESS_KEY -u AWS_SESSION_TOKEN -u AWS_PROFILE -u AWS_REGION -u AWS_DEFAULT_REGION pi`.
+
 ## Why Pi Is Neat
 
 - **extensibility**: it's not *just* open source (Codex and OpenCode are too) — pi is expressly designed to be easily customized. anything you don't like? tell pi to change itself. Almost everything can be refreshed with `/reload` without a restart — see my list for how w/ minimal yak-shaving, you can customize something to be *very* specific to your preferences
@@ -79,6 +81,7 @@ For saving tokens.
 
 - [asyrjasalo/pi-extensions — pi-repoprompt-mcp](https://github.com/asyrjasalo/pi-extensions/tree/main/packages/pi-repoprompt-mcp) — exposes [RepoPrompt](https://repoprompt.com/)'s MCP tools to pi behind a single `rp` tool with branch-safe window/tab binding (auto-attaches by `cwd`, persists across `/tree` rewinds and `/fork`), syntax + diff highlighting, edit/delete guardrails, and an `/rp oracle` shortcut to send the current selection to RepoPrompt Chat
   - Requires the RepoPrompt macOS app installed and running; `pi-setup.sh` auto-writes `~/.pi/agent/extensions/repoprompt-mcp.json` pointing at `/Applications/Repo Prompt.app/Contents/MacOS/repoprompt-mcp` (the bundled MCP server) so pi spawns the right binary instead of trying `npx rp-mcp-server`
+  - Gotcha: edits to `~/.pi/agent/extensions/repoprompt-mcp.json` only take effect after a full `pi` restart — `/rp reconnect` keeps using the in-memory config loaded at session start, so you'll still see `npm error code ENOVERSIONS` until you exit and relaunch
   - Upstream monorepo: [w-winter/dot314](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp)
 
 ### Task Management
