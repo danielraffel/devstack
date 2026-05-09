@@ -47,7 +47,6 @@ pi install npm:@the-forge-flow/camoufox-pi@0.2.1
 pi install npm:pi-code-previews
 pi install npm:@tintinweb/pi-tasks
 pi install npm:pi-multiloop
-pi install npm:@lhl/pi-vertex
 pi install npm:@sting8k/pi-vcc
 
 pi install npm:pi-codex-status
@@ -126,7 +125,22 @@ echo "Rebuilding native deps for camoufox-pi (better-sqlite3)..."
     break
   fi
 done)
-PIP_REQUIRE_HASHES=0 pip install -U camoufox[geoip]
+# Modern Homebrew Python enforces PEP 668 (externally-managed), so bare
+# `pip install` fails with EXTERNALLY-MANAGED-ENVIRONMENT. Use pipx to
+# install camoufox into its own isolated venv and expose the `camoufox`
+# binary on PATH.
+if ! command -v pipx &>/dev/null; then
+  if command -v brew &>/dev/null; then
+    brew install pipx
+  else
+    echo "pipx not found and brew unavailable — install pipx manually before re-running" >&2
+    exit 1
+  fi
+  pipx ensurepath
+fi
+# Make sure the user-local pipx bin dir is on PATH for this script run.
+export PATH="$HOME/.local/bin:$PATH"
+pipx install --force 'camoufox[geoip]'
 camoufox fetch
 
 echo "Done. Run 'pi' to start."

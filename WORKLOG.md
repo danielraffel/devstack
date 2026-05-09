@@ -4,6 +4,23 @@ Append-only session log. Each entry records what was done, why, and what's next.
 
 ---
 
+## 2026-05-09 — Removed pi-vertex; fixed camoufox install via pipx
+
+**What:** Trimmed an unused provider extension and unblocked the camoufox stealth-browser install that `pi-setup.sh` had been failing on.
+
+- Ran `pi remove npm:@lhl/pi-vertex` — user doesn't have a `GOOGLE_CLOUD_PROJECT` and was getting `[pi-vertex] Skipping: no project ID found.` on every launch.
+- Removed `pi install npm:@lhl/pi-vertex` from `pi-setup.sh`, deleted the `pi-vertex` row from the `Installed Extensions` table in `wiki/tools/pi-agent.md`, and replaced the dedicated "Custom Providers" section in `README.md` with a single-paragraph pointer (no longer a daily-driver setup of mine).
+- Camoufox install: replaced the broken `pip install -U camoufox[geoip]` block in `pi-setup.sh` with a pipx-based install. Modern Homebrew Python (3.12+) is PEP 668 externally-managed, so bare `pip install` fails; pipx isolates camoufox in its own venv and exposes the binary on `PATH`. Script also auto-installs `pipx` via Homebrew if missing.
+- Locally: `brew install pipx && pipx ensurepath && pipx install 'camoufox[geoip]' && camoufox fetch`. Browser binary lives at `~/Library/Caches/camoufox/Camoufox.app` on macOS (newer location than the legacy `~/.cache/camoufox` referenced in older docs).
+
+**Decisions:**
+- Kept `@the-forge-flow/camoufox-pi` installed but fixed the host-side dependency rather than removing the extension — `pi-web-access` + `pi-smart-fetch` cover most fetching needs, but camoufox is the escape hatch for Cloudflare-protected pages.
+
+**Next:**
+- `/reload` inside an existing pi session (or restart) so camoufox-pi can find the now-working `camoufox` binary.
+
+---
+
 ## 2026-05-09 — Configured pi-repoprompt-mcp + documented daily-driver alias
 
 **What:** Resolved the `npm error code ENOVERSIONS` / `MCP error -32000: Connection closed` failure when pi tried to connect to RepoPrompt, and recorded the Opus 4.6 + xhigh launch alias in the README.

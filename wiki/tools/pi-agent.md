@@ -43,7 +43,6 @@ Pi (pi.dev) is a minimal, extensible terminal coding harness by Mario Zechner (b
 | **pi-repoprompt-mcp** | `npm:pi-repoprompt-mcp` ([source](https://github.com/w-winter/dot314/tree/main/packages/pi-repoprompt-mcp)) | Exposes RepoPrompt MCP tools to pi via a single `rp` tool — branch-safe window/tab binding, rendered diffs/code, oracle helper | ✅ Installed (v0.7.3) |
 | **pi-codex-fast** | `npm:@calesennett/pi-codex-fast` ([source](https://github.com/calesennett/pi-codex-fast)) | Optional OpenAI/OpenAI Codex priority service-tier toggle (`service_tier: "priority"`) | 🧪 Local evaluation; not in default `pi-setup.sh` |
 | **pi-live-terminal** | `npm:pi-live-terminal` ([source](https://github.com/tanishqkancharla/pi-live-terminal)) | tmux-based live terminal widget for interactive/long-running commands | ✅ Installed (v0.2.0) |
-| **pi-vertex** | `npm:@lhl/pi-vertex` ([source](https://github.com/lhl/pi-vertex)) | Google Vertex AI provider — Gemini, Claude, Llama, DeepSeek, Qwen, Mistral, and 20+ other MaaS models | ✅ Installed (v1.1.8, forked from ssweens) |
 | **pi-codex-conversion** | `npm:@howaboua/pi-codex-conversion` ([source](https://github.com/IgorWarzocha/pi-codex-conversion)) | Codex-oriented adapter: tool-swap, WS/SSE dual transport, native Codex web_search/image_generation | 📋 Evaluated (not installed) |
 
 **Install commands:**

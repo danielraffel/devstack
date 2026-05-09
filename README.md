@@ -107,13 +107,7 @@ Pi supports a number of providers OOTB including most first-party frontier model
 
 ### Custom Providers
 
-- [`@lhl/pi-vertex`](https://www.npmjs.com/package/@lhl/pi-vertex) — Google Vertex AI provider with Gemini, Claude, Llama, DeepSeek, Qwen, Mistral, and 20+ other MaaS models. Forked from `@ssweens/pi-vertex` with added tests, CI, and linting; source: [lhl/pi-vertex](https://github.com/lhl/pi-vertex).
-  ```bash
-  pi install npm:@lhl/pi-vertex
-  export GOOGLE_CLOUD_PROJECT=your-project-id
-  export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
-  pi --provider vertex --model claude-opus-4-6
-  ```
+(I run Claude Pro/Max OAuth via [`pi-anthropic-auth`](#account--quota-management) and don't use a custom provider extension. If you do want Vertex/Gemini-via-Vertex, see [`@lhl/pi-vertex`](https://www.npmjs.com/package/@lhl/pi-vertex) — install with `pi install npm:@lhl/pi-vertex` and set `GOOGLE_CLOUD_PROJECT` + `GOOGLE_APPLICATION_CREDENTIALS`.)
 
 My current best coding models (date is last time I looked at/updated the model):
 - GPT-5.5 xhigh (2026-05-09) — brand new, better personality to talk to than 5.3/5.4, the best coder, still can be myopic
