@@ -28,7 +28,15 @@ alias pi='env -u AWS_ACCESS_KEY_ID -u AWS_SECRET_ACCESS_KEY -u AWS_SESSION_TOKEN
 
 Add to `~/.zshrc` (or `~/.bashrc`) and `source` it. Use `command pi …` if you ever need the unaliased form (e.g. `command pi --provider google …`). Heads up: subscription auth from third-party harnesses bills against [Anthropic extra usage](https://claude.ai/settings/usage) per token, not your flat plan limits — Opus + `xhigh` burns through it fast, so reserve it for the work that needs it.
 
-**Why the `env -u` chain:** if your shell exports `AWS_*` credentials (e.g. for SES or another AWS workload), pi auto-loads the `bedrock` provider; the model picker then fills with `amazon.nova-…` and `anthropic.claude-…-bedrock` entries that fail with `AccessDeniedException` unless your IAM principal has `bedrock:InvokeModelWithResponseStream`. `--provider anthropic` only pins runtime — the picker still shows the auto-loaded provider's catalog. Stripping AWS env vars *before* pi runs prevents the provider from loading at all, keeping the picker clean. Same trick applies to other auto-detected providers: add `-u GOOGLE_CLOUD_PROJECT -u AZURE_OPENAI_API_KEY -u CLOUDFLARE_API_KEY` if any of those leak into your shell and you don't want their catalogs either.
+**Why the `env -u` chain:** pi auto-loads any cloud provider whose env vars happen to be set in your shell. So if (say) your `~/.zshrc` exports `AWS_ACCESS_KEY_ID` for an unrelated workload like SES, pi loads the `bedrock` provider on launch and the model picker fills with `amazon.nova-…` and `anthropic.claude-…-bedrock` entries that fail with `AccessDeniedException` unless your IAM principal has `bedrock:InvokeModelWithResponseStream`. `--provider anthropic` only pins which provider serves your *current* model — the picker still shows every auto-loaded provider's catalog. Stripping the offending vars *before* pi runs prevents the provider from loading at all, keeping the picker clean.
+
+**Diagnose your own situation:** run this in the shell where you launch pi to see which auto-loader env vars are present. Output is just variable names, not values, so it's safe to share.
+
+```bash
+env | grep -oE '^(AWS|AZURE_OPENAI|GOOGLE_CLOUD|GOOGLE_APPLICATION|CLOUDFLARE|HF_TOKEN|GROQ|XAI|OPENAI|DEEPSEEK|MISTRAL|CEREBRAS|FIREWORKS)[A-Z_]*' | sort -u
+```
+
+For each line that comes back, either drop the export from your shell rc if you don't actually need it, or add `-u <var>` to the alias above to scrub it for pi only. The alias already covers the AWS family because that's the most common SES/IAM leak; the others are one-flag adds when you hit them.
 
 ## Why Pi Is Neat
 
