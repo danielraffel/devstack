@@ -18,6 +18,16 @@ cd devstack
 
 (Or clone the upstream [lhl/devstack](https://github.com/lhl/devstack) if you don't want the additions noted above.)
 
+### My daily-driver setup
+
+After `pi-setup.sh` finishes, log into Anthropic OAuth via `/login` (pick **Claude Pro/Max**) inside pi, then alias the Opus 4.6 + xhigh-thinking launch into your shell so you don't retype it:
+
+```bash
+alias pi='command pi --provider anthropic --model claude-opus-4-6 --thinking xhigh'
+```
+
+Add to `~/.zshrc` (or `~/.bashrc`) and `source` it. Use `command pi …` if you ever need the unaliased form (e.g. `command pi --provider google …`). Heads up: subscription auth from third-party harnesses bills against [Anthropic extra usage](https://claude.ai/settings/usage) per token, not your flat plan limits — Opus + `xhigh` burns through it fast, so reserve it for the work that needs it.
+
 ## Why Pi Is Neat
 
 - **extensibility**: it's not *just* open source (Codex and OpenCode are too) — pi is expressly designed to be easily customized. anything you don't like? tell pi to change itself. Almost everything can be refreshed with `/reload` without a restart — see my list for how w/ minimal yak-shaving, you can customize something to be *very* specific to your preferences

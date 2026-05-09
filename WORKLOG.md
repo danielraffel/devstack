@@ -4,6 +4,25 @@ Append-only session log. Each entry records what was done, why, and what's next.
 
 ---
 
+## 2026-05-09 — Configured pi-repoprompt-mcp + documented daily-driver alias
+
+**What:** Resolved the `npm error code ENOVERSIONS` / `MCP error -32000: Connection closed` failure when pi tried to connect to RepoPrompt, and recorded the Opus 4.6 + xhigh launch alias in the README.
+
+- Root cause: `pi-repoprompt-mcp` defaults its `command` to `rp-mcp-server`, which isn't in `PATH`. The actual MCP server ships inside `Repo Prompt.app` at `Contents/MacOS/repoprompt-mcp`.
+- Wrote `~/.pi/agent/extensions/repoprompt-mcp.json` pointing `command` at the absolute app-bundle path. After this, `/rp reconnect` should succeed (with the RepoPrompt macOS app running).
+- Added an idempotent auto-config block to `pi-setup.sh` that writes the same JSON when the app is detected and skips when it isn't, mirroring the existing `pi-vcc-config.json` pattern.
+- Added a "My daily-driver setup" note to `README.md` documenting `/login` for Claude Pro/Max OAuth and the alias `alias pi='command pi --provider anthropic --model claude-opus-4-6 --thinking xhigh'` plus a billing caveat.
+
+**Decisions:**
+- Hardcoded the macOS-bundle path in `pi-setup.sh` rather than symlinking `repoprompt-mcp` into `/usr/local/bin/`. The path is stable for the GUI install location, and avoids touching system-wide bins.
+- Kept default `confirmDeletes: true` and `confirmEdits: false` — matches the extension's documented defaults.
+
+**Next:**
+- Verify `/rp reconnect` works inside pi after launching the Repo Prompt app.
+- If running on a system where `Repo Prompt.app` lives in `~/Applications` instead of `/Applications`, edit the config path manually or extend the setup script's detection.
+
+---
+
 ## 2026-05-09 — Added submodules for pi-anthropic-auth and pi-extensions
 
 **What:** Per devstack's submodule convention, added the upstream sources for both newly installed plugins under `projects/`.

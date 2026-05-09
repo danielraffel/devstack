@@ -66,6 +66,33 @@ pi install npm:@gotgenes/pi-anthropic-auth
 # installed and reachable.
 pi install npm:pi-repoprompt-mcp
 
+# pi-repoprompt-mcp's default `command` is "rp-mcp-server", which doesn't
+# exist on disk — the actual MCP server is bundled inside the
+# Repo Prompt.app on macOS. Auto-detect and write the extension config so
+# pi can spawn it. Skip silently if the app isn't installed.
+RP_MCP_CONFIG="$HOME/.pi/agent/extensions/repoprompt-mcp.json"
+RP_MCP_BIN="/Applications/Repo Prompt.app/Contents/MacOS/repoprompt-mcp"
+if [ -x "$RP_MCP_BIN" ]; then
+  mkdir -p "$(dirname "$RP_MCP_CONFIG")"
+  if [ ! -f "$RP_MCP_CONFIG" ]; then
+    cat > "$RP_MCP_CONFIG" <<JSON
+{
+  "command": "$RP_MCP_BIN",
+  "args": [],
+  "autoBindOnStart": true,
+  "persistBinding": true,
+  "confirmDeletes": true,
+  "confirmEdits": false
+}
+JSON
+    echo "Wrote $RP_MCP_CONFIG pointing at $RP_MCP_BIN"
+  else
+    echo "Preserving existing $RP_MCP_CONFIG (edit manually if needed)"
+  fi
+else
+  echo "Repo Prompt.app not found — skipping pi-repoprompt-mcp config (install the app, then re-run)"
+fi
+
 # pi-vcc: make it handle /compact and auto-threshold compactions (not just /pi-vcc).
 # Default is false, which only runs pi-vcc on the explicit /pi-vcc command.
 # We override because pi's built-in single-pass summarizer can 400 on large spans.
