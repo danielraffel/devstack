@@ -23,12 +23,12 @@ cd devstack
 After `pi-setup.sh` finishes, log into Anthropic OAuth via `/login` (pick **Claude Pro/Max**) inside pi, then alias the Opus 4.6 + xhigh-thinking launch into your shell so you don't retype it:
 
 ```bash
-alias pi='command pi --provider anthropic --model claude-opus-4-6 --thinking xhigh'
+alias pi='env -u AWS_ACCESS_KEY_ID -u AWS_SECRET_ACCESS_KEY -u AWS_SESSION_TOKEN -u AWS_PROFILE -u AWS_DEFAULT_PROFILE -u AWS_REGION -u AWS_DEFAULT_REGION -u AWS_BEARER_TOKEN_BEDROCK -u AWS_ENDPOINT_URL_BEDROCK_RUNTIME command pi --provider anthropic --model claude-opus-4-6 --thinking xhigh'
 ```
 
 Add to `~/.zshrc` (or `~/.bashrc`) and `source` it. Use `command pi …` if you ever need the unaliased form (e.g. `command pi --provider google …`). Heads up: subscription auth from third-party harnesses bills against [Anthropic extra usage](https://claude.ai/settings/usage) per token, not your flat plan limits — Opus + `xhigh` burns through it fast, so reserve it for the work that needs it.
 
-**Bedrock auto-detect trap:** if your shell exports `AWS_*` credentials (e.g. for SES or another AWS workload), pi will auto-load the `bedrock` provider and silently default model picks to `bedrock/anthropic.claude-…`, which fails with `AccessDeniedException` unless your IAM principal has `bedrock:InvokeModelWithResponseStream`. The `--provider anthropic` flag in the alias above pins you to OAuth — drop it only if you really mean to. To one-shot strip AWS creds for a single launch: `env -u AWS_ACCESS_KEY_ID -u AWS_SECRET_ACCESS_KEY -u AWS_SESSION_TOKEN -u AWS_PROFILE -u AWS_REGION -u AWS_DEFAULT_REGION pi`.
+**Why the `env -u` chain:** if your shell exports `AWS_*` credentials (e.g. for SES or another AWS workload), pi auto-loads the `bedrock` provider; the model picker then fills with `amazon.nova-…` and `anthropic.claude-…-bedrock` entries that fail with `AccessDeniedException` unless your IAM principal has `bedrock:InvokeModelWithResponseStream`. `--provider anthropic` only pins runtime — the picker still shows the auto-loaded provider's catalog. Stripping AWS env vars *before* pi runs prevents the provider from loading at all, keeping the picker clean. Same trick applies to other auto-detected providers: add `-u GOOGLE_CLOUD_PROJECT -u AZURE_OPENAI_API_KEY -u CLOUDFLARE_API_KEY` if any of those leak into your shell and you don't want their catalogs either.
 
 ## Why Pi Is Neat
 
